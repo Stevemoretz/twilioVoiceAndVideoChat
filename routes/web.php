@@ -14,14 +14,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 Route::get('/', "VideoRoomsController@index");
-Route::prefix('room')->middleware('auth')->group(function() {
-    Route::get('join/{roomName}', 'VideoRoomsController@joinRoom');
-    Route::get('join/voice/{roomName}', 'VideoRoomsController@joinVoiceRoom');
-    Route::post('create', 'VideoRoomsController@createRoom');
-});
+Route::get('join/{roomName}', 'VideoRoomsController@joinRoom');
+Route::get('join/voice/{roomName}', 'VideoRoomsController@joinVoiceRoom');
+Route::post('create', 'VideoRoomsController@createRoom');

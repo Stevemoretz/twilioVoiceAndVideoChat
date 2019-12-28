@@ -1,102 +1,59 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="video conference and voice chat">
+    <meta name="author" content="NikooWeb">
 
-        <title>Laravel</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <title> video confrence  | voice chat </title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- font-awesome-->
+    <link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('front/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('front/css/style.css')}}">
 
-            .position-ref {
-                position: relative;
-            }
+</head>
+<body>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-                <div class="content">
-                    <div class="title m-b-md">
-                        Video And Voice Chat Rooms
-                    </div>
-
-                    {!! Form::open(['url' => 'room/create']) !!}
-                    {!! Form::label('roomName', 'Create or Join a Video Chat Room') !!}
-                    {!! Form::text('roomName') !!}
-                    {!! Form::submit('Go') !!}
-                    {!! Form::close() !!}
-
-                    @if($rooms)
-                        @foreach ($rooms as $room)
-                            <div>
-                                <a href="{{ url('/room/join/'.$room) }}">video : {{ $room }}</a>
-                                <a href="{{ url('/room/join/voice/'.$room) }}">voice : {{ $room }}</a>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+<div class="main">
+    <div class="header">
+         <a href="{{ url('/home') }}" class="btn logo-btn"> demo </a>
+    </div>
+    <div class="content">
+        <div class="title">
+            <h3> Video And Voice Chat Rooms </h3>
         </div>
-    </body>
+
+        {!! Form::open(['url' => 'create']) !!}
+        {!! Form::label('roomName', 'Create or Join a Room') !!}
+        {!! Form::text('roomName') !!}
+        {!! Form::submit('Go') !!}
+        {!! Form::close() !!}
+
+        @if($rooms)
+            <div class="rooms-box">
+                <h3 class="rooms-box-title"> Rooms </h3>
+                @foreach ($rooms as $room)
+                    <div class="room">
+                        <span class="room-title">  {{ $room }} :  </span>
+                        <a href="{{ url('/join/'.$room) }}" class="video-btn room-btn">video-chat </a>
+                        <a href="{{ url('/join/voice/'.$room) }}" class="voice-btn room-btn">voice-chat </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+    </div>
+</div>
+
+</body>
 </html>
